@@ -27,7 +27,7 @@ def add_item(request):
 
 
 def edit_item(request, item_id):
-    item = get_object_or_404(Item, id=item_id) 
+    item = get_object_or_404(Item, id=item_id)
     # The above with an ID equal to the item ID that was passed
     # into the view via the URL.
     if request.method == 'POST':
@@ -44,7 +44,13 @@ def edit_item(request, item_id):
 
 
 def toggle_item(request, item_id):
-    item = get_object_or_404(Item, id=item_id) 
+    item = get_object_or_404(Item, id=item_id)
     item.done = not item.done
     item.save()
+    return redirect('get_todo_list')
+
+
+def delete_item(request, item_id):
+    item = get_object_or_404(Item, id=item_id)
+    item.delete()
     return redirect('get_todo_list')
